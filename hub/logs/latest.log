@@ -1,0 +1,34 @@
+[00:00:29] [Server thread/INFO]: silverace_71 issued server command: /gamemode creative
+[00:00:30] [Server thread/INFO]: silverace_71 issued server command: /gamemode survival
+[00:20:48] [Server thread/INFO]: Stopping the server
+[00:20:48] [Server thread/INFO]: Stopping server
+[00:20:48] [Server thread/INFO]: [DecentHolograms] Disabling DecentHolograms v2.7.7
+[00:20:48] [Server thread/INFO]: [Citizens] Disabling Citizens v2.0.30-SNAPSHOT (build 2770)
+[00:20:48] [Server thread/INFO]: [ProtocolLib] Disabling ProtocolLib v5.0.0-SNAPSHOT-b608
+[00:20:48] [Server thread/INFO]: [DeluxeHub] Disabling DeluxeHub v3.5.2
+[00:20:48] [Server thread/INFO]: [ViaVersion] Disabling ViaVersion v4.5.1
+[00:20:48] [Server thread/INFO]: [ViaVersion] ViaVersion is disabling, if this is a reload and you experience issues consider rebooting.
+[00:20:48] [Server thread/INFO]: [WorldEdit] Disabling WorldEdit v7.2.13+46576cc
+[00:20:48] [Server thread/INFO]: Unregistering com.sk89q.worldedit.bukkit.BukkitServerInterface from WorldEdit
+[00:20:48] [Server thread/INFO]: Saving players
+[00:20:48] [Server thread/INFO]: silverace_71 lost connection: Server closed
+[00:20:48] [Server thread/INFO]: silverace_71 left the game
+[00:20:48] [Server thread/INFO]: Davin17 lost connection: Server closed
+[00:20:48] [Server thread/INFO]: Davin17 left the game
+[00:20:49] [Server thread/INFO]: Saving worlds
+[00:20:49] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[00:20:49] [Server thread/INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world'
+[00:20:49] [Server thread/INFO]: [ChunkHolderManager] Halted chunk system for world 'world'
+[00:20:49] [Server thread/INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world'
+[00:20:49] [Server thread/INFO]: [ChunkHolderManager] Saved 478 block chunks, 3 entity chunks, 1 poi chunks in world 'world' in 0.21s
+[00:20:50] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[00:20:50] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world_the_end]'/minecraft:the_end
+[00:20:50] [Server thread/INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world_the_end'
+[00:20:50] [Server thread/INFO]: [ChunkHolderManager] Halted chunk system for world 'world_the_end'
+[00:20:50] [Server thread/INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world_the_end'
+[00:20:50] [Server thread/INFO]: [ChunkHolderManager] Saved 10 block chunks, 10 entity chunks, 0 poi chunks in world 'world_the_end' in 0.00s
+[00:20:50] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[00:20:50] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+[00:20:50] [Server thread/INFO]: Flushing Chunk IO
+[00:20:50] [Server thread/INFO]: Closing Thread Pool
+[00:20:50] [Server thread/INFO]: Closing Server
