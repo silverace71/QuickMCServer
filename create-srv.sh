@@ -1,28 +1,50 @@
 #!/bin/bash
-read -p "do you wish to run SilverServer setup?" -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    RED='\033[0;31m'
-    GREEN='\033[0;32m'
-    YELLOW='\033[1;33m'
-    NC='\033[0m'
-    sudo apt install jq -y
-    echo "${RED} !!!WARNING!!! ${YELLOW} YOU MIGHT ENCOUNTER BUGS ON THE LATEST MINECRAFT VERSION AND PAPER WILL NOT GIVE YOU SUPPORT ON ANY PREVIOUS VERSIONS, OTHER THAN THE LATEST"
-    sleep 5
-    echo "${GREEN}what version of minecraft so you want?${NC}"
-    read version
-    name=paper
-    api=https://api.papermc.io/v2
-    latest_build="$(curl -sX GET "$api"/projects/"$name"/versions/"$version"/builds -H 'accept: application/json' | jq '.builds [-1].build')"
-    revision="$(curl -sX GET "$api"/projects/"$name"/version_group/"$version"/builds -H 'accept: application/json' | jq -r '.builds [-1].version')"
-    filename="$(curl -sX GET "$api"/projects/"$name"/version_group/"$version"/builds -H 'accept: application/json' | jq -r '.builds [-1].downloads.application.name')"
-    download_url="$api"/projects/"$name"/versions/"$revision"/builds/"$latest_build"/downloads/"$filename"
-    wget "$download_url"
+echo "do you wish to run SilverServer setup (y/n)?"
+read r0
+if [[ $r0 =~ ^[Yy]$ ]]; then
+    echo -e "Have you installed java yet (y/n)?"
+    read r0
+    if [[ $r0 =~ ^[Yy]$ ]]; then
+    echo " "
+    else
+    sudo apt install openjdk-17-jdk -y
+    fi
+    echo -e "What server will this be?"
+    PS3="Choose an option:"
+    select option in "1||Paper" "2||Fabric" "3||Forge" "4||Vanilla"; do
+    case $option in
+        "1||Paper")
+        echo "You selected Option 1"
+        exit
+        break
+        ;;
+        "2||Fabric")
+        echo "You selected Option 2"
+        exit
+        break
+        ;;
+        "3||Forge")
+        echo "You selected Option 3"
+        exit
+        break
+        ;;
+        "4||Vanilla")
+        echo "You selected Option 3"
+        exit
+        break
+        ;;
+        *)
+        echo "Invalid selection"
+        ;;
+    esac
+    done
+
 else
-    echo "fortnite battle pass. Anyways canceled installation"
+echo "install cancelled"
+exit
 fi
-
-
+echo "done!"
+exit
 
 
 
