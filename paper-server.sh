@@ -39,12 +39,22 @@ if [[ $r1 =~ ^[Yy]$ ]]; then
     else
     sleep 0
     fi
+    pwd=$(pwd)
     name=paper
     api=https://api.papermc.io/v2
     latest_build="$(curl -sX GET $api/projects/$name/versions/$version/builds -H 'accept: application/json' | jq '.builds [-1].build')"
     download_url=""$api"/projects/"$name"/versions/"$version"/builds/"$latest_build"/downloads/"$name"-"$version"-"$latest_build".jar"
     wget $download_url
-    
+    wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/eula.txt
+    mv "$name"-"$version"-"$latest_build".jar paper.jar
+cat << EOF >> start.sh
+#!/bin/bash
+java -jar -Xms128M -Xmx"$ram"M -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ParallelRefProcEnabled -XX:ParallelGCThreads=$cc -XX:ConcGCThreads=$cc -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseCompressedOops -XX:+UseVectorCmov -XX:+UseStringDeduplication -XX:+AllowParallelDefineClass -XX:-DontCompileHugeMethods paper.jar nogui
+EOF
+    sudo chmod +x start.sh
+    perl -pi -e 's/abc/XYZ/g' $pwd/file.txt
+
+
 
     echo -e "Please choose what kind of paper server this will be?"
     PS3="Choose an option:"
