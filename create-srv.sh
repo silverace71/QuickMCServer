@@ -5,7 +5,7 @@ if [[ $r0 =~ ^[Yy]$ ]]; then
     echo -e "Have you installed java yet (y/n)?"
     read r0
     if [[ $r0 =~ ^[Yy]$ ]]; then
-    echo " "
+    sleep 0
     else
     sudo apt install openjdk-17-jdk -y
     fi
