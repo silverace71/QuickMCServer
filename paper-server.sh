@@ -80,10 +80,10 @@ kill $server_pid
         ts1=max-tick-time=60000
         tc1="max-tick-time=-1"
         ts2=view-distance=10
-        tc2="view-distance="$vdist"
+        tc2=view-distance="$vdist"
         ts3=server-port=25565
-        tc3="server-port="$port""
-        ts4="online-mode=true"
+        tc3=server-port="$port"
+        ts4=online-mode=true
         tc4="online-mode=false"
         fc2=bukkit.yml
         ts5="connection-throttle: 4000"
@@ -91,24 +91,13 @@ kill $server_pid
         fc3=spigot.yml
         ts6="bungeecord: false"
         tc6="bungeecord: true"
-#        cp $fc1 "$fc1.bak"
-#        cp $fc2 "$fc2.bak"
-#        cp $fc3 "$fc3.bak"
-
-        sed -i "s/$ts1/$tc1/g" $pwd/$fc1
-        sed -i "s/$tc2/$tc2/g" $pwd/$fc1
-        sed -i "s/$tc3/$tc3/g" $pwd/$fc1
-        sed -i "s/$tc4/$tc4/g" $pwd/$fc1
-#        awk -v s="$ts2" -v r="$tc2" '{gsub(s,r); print}' "$pwd/$fc1.bak" > $fc1
-#        awk -v s="$ts3" -v r="$tc3" '{gsub(s,r); print}' "$pwd/$fc1.bak" > $fc1
-#        awk -v s="$ts4" -v r="$tc4" '{gsub(s,r); print}' "$pwd/$fc1.bak" > $fc1
-#        awk -v s="$ts5" -v r="$tc5" '{gsub(s,r); print}' "$pwd/$fc2.bak" > $fc2
-#        awk -v s="$ts6" -v r="$tc6" '{gsub(s,r); print}' "$pwd/$fc3.bak" > $fc3
-#        mv server.yml server.properties
-#        sleep 1
-#        rm *.bak
-##that took 2 weeks for me to figure out
-        sleep 1
+        sed -i "s/$ts1/$tc1/g" $fc1
+        sed -i "s/$ts2/$tc2/g" $fc1
+        sed -i "s/$ts3/$tc3/g" $fc1
+        sed -i "s/$ts4/$tc4/g" $fc1
+        sed -i "s/$ts5/$tc5/g" $fc2
+        sed -i "s/$ts6/$tc6/g" $fc3
+        sleep 0
         break
         ;;
         *)
