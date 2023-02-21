@@ -69,20 +69,45 @@ kill $server_pid
     case $option in
         "1||Standalone")
         echo "Setting up standalone paper server"
-        online= true
-        network= false
-        sleep 1
+        sleep 0
         break
         ;;
         "2||Bungeecord")
         echo "Setting up paper server as part of a network"
-        
-        sed -i -e 's/max-tick-time=60000/max-tick-time=-1/g' /$pwd/server.properties
-        sed -i -e 's/view-distance=10/view-distance=$vdist/g' /$pwd/server.properties
-        sed -i -e 's/server-port=25565/server-port=$port/g' /$pwd/server.properties
-        
-        online= false
-        network= true
+## shitpost time
+
+        fc1=server.properties
+        ts1=max-tick-time=60000
+        tc1="max-tick-time=-1"
+        ts2=view-distance=10
+        tc2="view-distance="$vdist"
+        ts3=server-port=25565
+        tc3="server-port="$port""
+        ts4="online-mode=true"
+        tc4="online-mode=false"
+        fc2=bukkit.yml
+        ts5="connection-throttle: 4000"
+        tc5="connection-throttle: -1"
+        fc3=spigot.yml
+        ts6="bungeecord: false"
+        tc6="bungeecord: true"
+#        cp $fc1 "$fc1.bak"
+#        cp $fc2 "$fc2.bak"
+#        cp $fc3 "$fc3.bak"
+
+        sed -i "s/$ts1/$tc1/g" $pwd/$fc1
+        sed -i "s/$tc2/$tc2/g" $pwd/$fc1
+        sed -i "s/$tc3/$tc3/g" $pwd/$fc1
+        sed -i "s/$tc4/$tc4/g" $pwd/$fc1
+#        awk -v s="$ts2" -v r="$tc2" '{gsub(s,r); print}' "$pwd/$fc1.bak" > $fc1
+#        awk -v s="$ts3" -v r="$tc3" '{gsub(s,r); print}' "$pwd/$fc1.bak" > $fc1
+#        awk -v s="$ts4" -v r="$tc4" '{gsub(s,r); print}' "$pwd/$fc1.bak" > $fc1
+#        awk -v s="$ts5" -v r="$tc5" '{gsub(s,r); print}' "$pwd/$fc2.bak" > $fc2
+#        awk -v s="$ts6" -v r="$tc6" '{gsub(s,r); print}' "$pwd/$fc3.bak" > $fc3
+#        mv server.yml server.properties
+#        sleep 1
+#        rm *.bak
+##that took 2 weeks for me to figure out
         sleep 1
         break
         ;;
