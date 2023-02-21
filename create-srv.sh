@@ -33,6 +33,10 @@ if [[ $r0 =~ ^[Yy]$ ]]; then
         exit
         break
         ;;
+        "5||Bungeecord Proxy")
+        sleep 0
+        exit
+        ;;
         *)
         echo "Invalid selection"
         ;;
