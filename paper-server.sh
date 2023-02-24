@@ -77,6 +77,8 @@ kill $server_pid
 ## shitpost time
 
         fc1=server.properties
+        ts0=simulation-distance=10
+        tc0=simulation-distance="$vdist"
         ts1=max-tick-time=60000
         tc1="max-tick-time=-1"
         ts2=view-distance=10
@@ -91,6 +93,7 @@ kill $server_pid
         fc3=spigot.yml
         ts6="bungeecord: false"
         tc6="bungeecord: true"
+        sed -i "s/$ts0/$tc0/g" $fc1
         sed -i "s/$ts1/$tc1/g" $fc1
         sed -i "s/$ts2/$tc2/g" $fc1
         sed -i "s/$ts3/$tc3/g" $fc1
