@@ -34,7 +34,9 @@ if [[ $r0 =~ ^[Yy]$ ]]; then
         break
         ;;
         "3||Forge")
-        echo "You selected Option 3"
+        wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/forge-server.sh
+        sudo chmod +x forge-server.sh
+        ./forge-server.sh
         break
         ;;
         "4||Vanilla")
