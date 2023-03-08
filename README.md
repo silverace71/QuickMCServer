@@ -1,2 +1,2 @@
 # ez-mc-server-hub
-Under development, but it'll make any server you want. paper, fabric, forge, and vanilla, all without port fowarding!
+I got it to work, however still working on the no port fowarding part
