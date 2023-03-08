@@ -69,6 +69,19 @@ kill $server_pid
     case $option in
         "1||Standalone")
         echo "Setting up standalone paper server"
+        fc1=server.properties
+        ts0=simulation-distance=10
+        tc0=simulation-distance="$vdist"
+        ts1=max-tick-time=60000
+        tc1="max-tick-time=-1"
+        ts2=view-distance=10
+        tc2=view-distance="$vdist"
+        ts3=server-port=25565
+        tc3=server-port="$port"
+        sed -i "s/$ts0/$tc0/g" $fc1
+        sed -i "s/$ts1/$tc1/g" $fc1
+        sed -i "s/$ts2/$tc2/g" $fc1
+        sed -i "s/$ts3/$tc3/g" $fc1
         sleep 0
         break
         ;;
