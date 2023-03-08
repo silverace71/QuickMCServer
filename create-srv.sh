@@ -28,7 +28,9 @@ if [[ $r0 =~ ^[Yy]$ ]]; then
         break
         ;;
         "2||Fabric")
-        echo "You selected Option 2"
+        wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/fabric-server.sh
+        sudo chmod +x fabric-server.sh
+        ./fabric-server.sh
         break
         ;;
         "3||Forge")
