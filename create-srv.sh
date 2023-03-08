@@ -19,7 +19,7 @@ if [[ $r0 =~ ^[Yy]$ ]]; then
     fi
     echo -e "What server will this be?"
     PS3="Choose an option:"
-    select option in "1||Paper" "2||Fabric" "3||Forge" "4||Vanilla" "5||Bungee-Proxy"; do
+    select option in "1||Paper" "2||Fabric" "3||Forge" "4||Bungee-Proxy"; do
     case $option in
         "1||Paper")
         wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/paper-server.sh
@@ -39,11 +39,7 @@ if [[ $r0 =~ ^[Yy]$ ]]; then
         ./forge-server.sh
         break
         ;;
-        "4||Vanilla")
-        echo "You selected Option 3"
-        break
-        ;;
-        "5||Bungee-Proxy")
+        "4||Bungee-Proxy")
         wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/bungee-proxy.sh
         sudo chmod +x bungee-proxy.sh
         ./bungee-proxy.sh
