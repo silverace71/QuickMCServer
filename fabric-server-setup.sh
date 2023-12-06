@@ -1,8 +1,12 @@
 #!/bin/bash
+
+## Ask EULA for (I think) legal reasons
 echo "do you agree to the Minecraft EULA (y/n)?"
 read r1
 if [[ $r1 =~ ^[Yy]$ ]]; then
-    sudo apt install jq -y
+
+## 
+
     echo "what version of minecraft do you want (MC Version 1.14+)?"
     read ver
     echo "How many GB of ram do you want to allocate to your server?"
@@ -30,6 +34,22 @@ if [[ $r1 =~ ^[Yy]$ ]]; then
     else
     sleep 0
     fi
+
+    ## Start new code
+
+    ##Asking user if code got everything right/if they got everything right
+
+    echo "ver is $installer"
+    echo "loader is $loader"
+    echo "download link is $download"
+
+    echo "are all the options listed above coorect y/n?"
+
+
+
+    installer=$(curl -s https://maven.fabricmc.net/net/fabricmc/fabric-installer/ | grep -oP '\b\d{1,3}\.\d{1,3}\.\d{1,3}\b' | sort -r -V | head -1)
+    loader=$(curl --silent "https://api.github.com/repos/FabricMC/fabric-loader/releases/latest" | grep -Po "(?<=\"tag_name\": \").*(?=\")")
+    download="https://meta.fabricmc.net/v2/versions/loader/$ver/$loader/$installer/server/jar"
     
 else
 sleep 0
