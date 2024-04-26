@@ -7,7 +7,7 @@ if [[ $r1 =~ ^[Yy]$ ]]; then
     read ver
     echo "How many GB of ram do you want to allocate to your server?"
     read GB
-    ram="$(( $GB * 1024))"
+    ram="$(( $GB * 1024))M"
     echo "how many threads do you wish to use for your server?"
     read cc
     echo "what should your view distance be? (higher=more performance needed, I reccomend 12)"
@@ -40,7 +40,7 @@ if [[ $r1 =~ ^[Yy]$ ]]; then
     mv fabric-server-mc."$ver"-loader."$loader_ver"-launcher."$install_ver".jar fabric.jar
 cat << EOF >> start.sh
 #!/bin/bash
-java -jar -Xms128M -Xmx$ramM -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ParallelRefProcEnabled -XX:ParallelGCThreads=$cc -XX:ConcGCThreads=$cc -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseCompressedOops -XX:+UseVectorCmov -XX:+UseStringDeduplication -XX:+AllowParallelDefineClass -XX:-DontCompileHugeMethods fabric.jar nogui
+java -jar -Xms128M -Xmx$ram -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ParallelRefProcEnabled -XX:ParallelGCThreads=$cc -XX:ConcGCThreads=$cc -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseCompressedOops -XX:+UseVectorCmov -XX:+UseStringDeduplication -XX:+AllowParallelDefineClass -XX:-DontCompileHugeMethods fabric.jar nogui
 EOF
 sudo chmod +x start.sh
 echo "Adding mods folder. "
