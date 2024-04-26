@@ -7,7 +7,7 @@ if [[ $r1 =~ ^[Yy]$ ]]; then
     read ver
     echo "How many GB of ram do you want to allocate to your server?"
     read GB
-    ram="$(( $GB * 1024))M"
+    ram=$(( $GB * 1024))M
     echo "how many threads do you wish to use for your server?"
     read cc
     echo "what should your view distance be? (higher=more performance needed, I reccomend 12)"
