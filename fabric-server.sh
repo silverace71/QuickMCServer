@@ -43,17 +43,9 @@ cat << EOF >> start.sh
 java -jar -Xms128M -Xmx"$ram"M -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ParallelRefProcEnabled -XX:ParallelGCThreads=$cc -XX:ConcGCThreads=$cc -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+UseCompressedOops -XX:+UseVectorCmov -XX:+UseStringDeduplication -XX:+AllowParallelDefineClass -XX:-DontCompileHugeMethods fabric.jar nogui
 EOF
 sudo chmod +x start.sh
-echo "generating files. This may take a bit depending on your systems specs!"
-nohup ./start.sh &
-
-while [ ! -f "$pwd/ops.json" ]; do
-  sleep 1
-done
-echo "done generating all files"
-sleep 4
-server_pid=$(pgrep -f fabric.jar)
-sleep 1
-kill $server_pid
+echo "Adding mods folder. "
+mkdir mods
+echo "add your mods in the mods folder and start the server with ./start.sh"
 else
 sleep 0
 fi
