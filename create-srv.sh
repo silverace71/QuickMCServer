@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "do you wish to run SilverServer setup (y/n)?"
+echo "This script will install a Minecraft server on your system. Do you wish to continue? (y/n)?"
 read r0
 if [[ $r0 =~ ^[Yy]$ ]]; then
     if echo "$git -v" | grep -q "^$version"; then
