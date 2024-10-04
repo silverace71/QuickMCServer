@@ -96,17 +96,32 @@ if [[ $r1 =~ ^[Yy]$ ]]; then
 
     ##Asking user if code got everything right/if they got everything right
 
-    echo "ver is $installer"
-    echo "loader is $loader"
-    echo "download link is $download"
+    pwd=$(pwd)
+    temp=$(curl -sX GET https://meta.fabricmc.net/v2/versions/loader/$ver/ -H 'accept: application/json' | jq '.[0].loader .version')
+    loader_ver=$(echo "$temp" | tr -d '"')
+    install_ver=$(curl -s https://maven.fabricmc.net/net/fabricmc/fabric-installer/ | grep -oP '\b\d{1,3}\.\d{1,3}\.\d{1,3}\b' | sort -r -V | head -1)
+    download_url="https://meta.fabricmc.net/v2/versions/loader/"$ver"/"$loader_ver"/"$install_ver"/server/jar"
 
-    echo "are all the options listed above coorect y/n?"
+    echo "ver is $install_ver"
+    echo "loader is $loader_ver"
+    echo "download link is $download_url if you want to check it"
 
+    echo "are all the options listed above correct y/n?"
+    read r4
+    if [[ $r4 =~ ^[Yy]$ ]]; then
+    echo "starting download"
+    
+    curl -OJ $download_url
+    wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/eula.txt
+    mv fabric-server-mc."$ver"-loader."$loader_ver"-launcher."$install_ver".jar fabric.jar
 
-
-    installer=$(curl -s https://maven.fabricmc.net/net/fabricmc/fabric-installer/ | grep -oP '\b\d{1,3}\.\d{1,3}\.\d{1,3}\b' | sort -r -V | head -1)
-    loader=$(curl --silent "https://api.github.com/repos/FabricMC/fabric-loader/releases/latest" | grep -Po "(?<=\"tag_name\": \").*(?=\")")
-    download="https://meta.fabricmc.net/v2/versions/loader/$ver/$loader/$installer/server/jar"
+    cat << EOF >> start.sh
+    #!/bin/bash
+    java -jar -Xms128M -Xmx$ram -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ParallelRefProcEnabled -XX:ParallelGCThreads=$cc -XX:ConcGCThreads=$cc -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:+...
+    EOF
+    sudo chmod +x start.sh
+    echo "Adding mods folder. "
+    mkdir mods
     
 else
 sleep 0
