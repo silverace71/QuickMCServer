@@ -1,32 +1,19 @@
 # Quick Minecraft Server Setup (QMSS)
-This allows you to create and self host a/any minecraft server (excluding vanilla). Paper/bungee networks, forge, and fabric are all supported and should work!
+QMSS allows you to easily set up any kind of minecraft server. After inputting some details, [mrpack](https://github.com/nothub/mrpack-install) handles the server download and some of the setup.
 
 ## **Install**
- - - - 
-- One Liner
+
+Using ubuntu as your server (or any debian based distro), you can install QMSS with one command.
+
 ```
-wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/create-srv.sh && sudo chmod +x create-srv.sh && ./create-srv.sh
+wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/create.sh && sudo chmod +x create.sh && ./create.sh
 ```
-- seperate commands
-```
-wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/create-srv.sh
-```
-```
-sudo chmod +x create-srv.sh
-```
-```
-./create-srv.sh
-```
-## **WARNING**
-- - - 
-THIS ONLY SUPPORTS APT (debian)
 
 ## **Todo**
-- - - 
-- add neoforge support
-- add quilt support
-- add tunnel support (cloudflared/playit.gg/any other tunnel software)
-- modpack support (modrinth)
-- add auto setup feature for all server types
-- premade modpacks?
-- web panel?
+- [X] Add all server types (vanilla, forge, fabric, quilt, neoforge, paper)
+- [ ] Add bungeecord/waterfall/velocity support
+- [ ] Add tunnel support (cloudflared/playit.gg/any other tunnel software)
+- [ ] Add modpack support (Modrinth)
+- [ ] Add auto setup feature for all server types
+- [ ] Implement premade modpacks
+- [ ] Develop web panel
