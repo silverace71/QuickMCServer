@@ -3,28 +3,20 @@
 echo "This script will install a Minecraft server on your system. Do you wish to continue? (y/n)?"
 read r0
 if [[ $r0 =~ ^[Yy]$ ]]; then
-    if echo "$git -v" | grep -q "^$version"; then
-    sleep 0
-    else
-    sudo apt install git -y
-    fi
-    if echo "$java -version" | grep -q "^$version"; then
-    sleep 0
-    else
-    sudo apt install openjdk-17-jdk -y
-    fi
-    if echo "$mrpack -v" | grep -q "^$version"; then
-        sleep 0
-    else
-        echo "Installing mrpack from GitHub releases..."
-        # Download the latest release of mrpack
-        latest_release=$(curl -s https://api.github.com/repos/nothub/mrpack-install/releases/latest | grep "browser_download_url" | grep "linux" | cut -d '"' -f 4)
-        wget "$latest_release" -O mrpack-install.tar.gz
-        tar -xzf mrpack-install.tar.gz
-        sudo mv mrpack-install /usr/local/bin/mrpack
-        sudo chmod +x /usr/local/bin/mrpack
-        rm mrpack-install.tar.gz
-    fi
+
+## Install some dependencies
+
+sudo apt update && sudo apt-get full-upgrade -y
+sudo apt install git -y
+
+
+
+wget $(curl -s https://api.github.com/repos/nothub/mrpack-install/releases/latest  | \
+jq -r '.assets[] | select(.name | contains ("linux")) | .browser_download_url')
+sudo chmod +x mrpack-install-linux
+rm mrpack-install-linux-arm64
+./mrpack-install-linux
+rm mrpack-install-linux
 
 ## Ask EULA for (I think) legal reasons
 echo "do you agree to the Minecraft EULA (y/n)?"
