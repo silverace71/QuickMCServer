@@ -8,6 +8,7 @@ if [[ $r0 =~ ^[Yy]$ ]]; then
 
 sudo apt update && sudo apt-get full-upgrade -y
 sudo apt install git -y
+sudo apt install jq -y
 if ! command -v java &> /dev/null || [[ $(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | awk -F. '{print $1}') -lt 21 ]]; then
     echo "Java 21 or higher is required. Installing Java 21..."
     sudo apt remove default-jdk openjdk* -y
