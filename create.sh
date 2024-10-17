@@ -173,13 +173,16 @@ wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/eula.txt
 echo "Starting the server to generate files..."
 java -jar $jvm_args srv.jar nogui &  # Run in the background
 server_pid=$!  # Capture the PID of the server process
-sleep 60  # Wait for 60 seconds
+
+# Wait for server.properties to generate
+while [ ! -f "server.properties" ]; do
+    sleep 1  # Check every second
+done
+
 echo "Stopping the server..."
 # Send the stop command to the server
 echo "stop" | java -jar $jvm_args srv.jar nogui
 wait $server_pid  # Wait for the server process to exit
-
-# Update server.properties with the new port and view distance
 echo "Updating server.properties..."
 if [ -f "server.properties" ]; then
     # Update the port
