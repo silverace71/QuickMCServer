@@ -19,12 +19,14 @@ if ! command -v java &> /dev/null || [[ $(java -version 2>&1 | awk -F '"' '/vers
 else
     echo "Java 21 or higher is already installed."
 fi
-wget $(curl -s https://api.github.com/repos/nothub/mrpack-install/releases/latest  | \
-jq -r '.assets[] | select(.name | contains ("linux")) | .browser_download_url')
-sudo chmod +x mrpack-install-linux
-rm mrpack-install-linux-arm64
-./mrpack-install-linux
-rm mrpack-install-linux
+if ! command -v mrpack-install &> /dev/null; then
+    wget $(curl -s https://api.github.com/repos/nothub/mrpack-install/releases/latest  | \
+    jq -r '.assets[] | select(.name | contains ("linux")) | .browser_download_url')
+    sudo chmod +x mrpack-install-linux
+    rm mrpack-install-linux-arm64
+    ./mrpack-install-linux
+    rm mrpack-install-linux
+fi
 
 ## Ask EULA for (I think) legal reasons
 echo "do you agree to the Minecraft EULA (y/n)?"
