@@ -20,12 +20,9 @@ else
     echo "Java 21 or higher is already installed."
 fi
 if ! command -v mrpack-install &> /dev/null; then
-    wget $(curl -s https://api.github.com/repos/nothub/mrpack-install/releases/latest  | \
-    jq -r '.assets[] | select(.name | contains ("linux")) | .browser_download_url')
-    sudo chmod +x mrpack-install-linux
-    rm mrpack-install-linux-arm64
-    ./mrpack-install-linux
-    rm mrpack-install-linux
+    wget https://github.com/nothub/mrpack-install/releases/download/v0.17.3-beta/mrpack-install_0.17.3-beta_linux_amd64.deb
+    sudo dpkg -i mrpack-install_0.17.3-beta_linux_amd64.deb
+    rm mrpack-install_0.17.3-beta_linux_amd64.deb
 fi
 
 ## Ask EULA for (I think) legal reasons
