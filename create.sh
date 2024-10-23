@@ -8,7 +8,6 @@ if [[ $r0 =~ ^[Yy]$ ]]; then
 
 sudo apt update && sudo apt-get full-upgrade -y
 sudo apt install git -y
-sudo apt install jq -y
 if ! command -v java &> /dev/null || [[ $(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | awk -F. '{print $1}') -lt 21 ]]; then
     echo "Java 21 or higher is required. Installing Java 21..."
     sudo apt remove default-jdk openjdk* -y
@@ -24,6 +23,37 @@ if ! command -v mrpack-install &> /dev/null; then
     sudo dpkg -i mrpack-install_0.17.3-beta_linux_amd64.deb
     rm mrpack-install_0.17.3-beta_linux_amd64.deb
 fi
+
+# If user wants to install a modpack they can enter the link here
+
+echo "Do you want to install a modpack from modrinth? (y/n)"
+read r2
+if [[ $r2 =~ ^[Yy]$ ]]; then
+while true; do
+    read -p "Enter the modpack link: " link
+
+    # Extracting the mod name and version
+    mod_name=$(echo $link | grep -oP '(?<=/modpack/)[^/]+')
+    version=$(echo $link | grep -oP '(?<=/version/)[^ ]+')
+
+    echo "Mod Name: $mod_name"
+    echo "Version: $version"
+    echo "Is this correct? (y/n)"
+    read r3
+    if [[ $r3 =~ ^[Yy]$ ]]; then
+        break
+    fi
+done
+
+read -p "Enter the server directory (default: fabric-srv): " server_dir
+server_dir=${server_dir:-fabric-srv}  # Default to fabric-srv if empty
+
+mrpack-install $mod_name $version --server-dir $server_dir
+
+else
+echo "continuing without modpack installation. Moving on to custom server setup."
+fi
+sleep 2
 
 ## Ask EULA for (I think) legal reasons
 echo "do you agree to the Minecraft EULA (y/n)?"
@@ -53,7 +83,7 @@ case $flavor_choice in
 esac
 
 echo "Hit the enter key to load default values when prompted"
-sleep 3
+sleep 2
 
 # Get additional parameters for the installation
 read -p "Enter the server directory (default: fabric-srv): " server_dir
