@@ -26,6 +26,7 @@ fi
 
 # If user wants to install a modpack they can enter the link here
 
+clear
 echo "Do you want to install a modpack from modrinth? (y/n)"
 read r2
 if [[ $r2 =~ ^[Yy]$ ]]; then
@@ -49,6 +50,10 @@ read -p "Enter the server directory (default: fabric-srv): " server_dir
 server_dir=${server_dir:-fabric-srv}  # Default to fabric-srv if empty
 
 mrpack-install $mod_name $version --server-dir $server_dir
+
+# Same as custom server setup but just with the modpack already installed
+# adding the ram and thread allocation section
+
 
 else
 echo "continuing without modpack installation. Moving on to custom server setup."
@@ -102,7 +107,7 @@ mrpack-install server $flavor --server-dir $server_dir --minecraft-version $mc_v
 
 ## Check total system RAM
     total_ram=$(free -g | awk '/^Mem:/{print $2}')
-    max_allowed=$((total_ram - 2)) # Leave at least 2GB for the system
+    max_allowed=$((total_ram - 2)) # Leave at least 2GB for the systems
 
     if [ $GB -gt $max_allowed ]; then
         echo "Warning: You're trying to allocate more RAM than recommended."
