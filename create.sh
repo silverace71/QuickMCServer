@@ -43,8 +43,20 @@ while true; do
     read r3
     if [[ $r3 =~ ^[Yy]$ ]]; then
         break
+    else
+        echo "Please enter the modpack link again."
+        continue
     fi
 done
+
+read -p "Do you agree to the minecraft EULA? (y/n)" r4
+if [[ $r4 =~ ^[Yy]$ ]]; then
+    wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/eula.txt
+else
+    clear
+    echo "You must agree to the minecraft EULA to continue. Exiting."
+    exit
+fi
 
 read -p "Enter the server directory (default: fabric-srv): " server_dir
 server_dir=${server_dir:-fabric-srv}  # Default to fabric-srv if empty
