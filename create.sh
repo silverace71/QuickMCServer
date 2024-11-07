@@ -112,6 +112,12 @@ mc_version=${mc_version:-latest}  # Default to latest if empty
 # Execute the installation command
 mrpack-install server $flavor --server-dir $server_dir --minecraft-version $mc_version --server-file srv.jar
 
+## System configuration section
+
+wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/systemconfig.sh
+sudo chmod +x systemconfig.sh
+./systemconfig.sh
+
 # Start the server to generate files
 
 echo "Starting the server to generate files..."
