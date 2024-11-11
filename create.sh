@@ -15,6 +15,8 @@ fi
 
 ## Install some dependencies
 
+echo "Updating and installing dependencies..."
+sleep 1
 sudo apt update && sudo apt-get full-upgrade -y
 sudo apt install git -y
 if ! command -v java &> /dev/null || [[ $(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | awk -F. '{print $1}') -lt 21 ]]; then
@@ -33,9 +35,9 @@ if ! command -v mrpack-install &> /dev/null; then
 
 # I would love if I could just grab the latest version of mrpack-install but they made the file extensions non-exsistent.
 
-    wget https://github.com/nothub/mrpack-install/releases/download/v0.17.3-beta/mrpack-install_0.17.3-beta_linux_amd64.deb
-    sudo dpkg -i mrpack-install_0.17.3-beta_linux_amd64.deb
-    rm mrpack-install_0.17.3-beta_linux_amd64.deb
+    wget https://github.com/nothub/mrpack-install/releases/download/v0.18.2-beta/mrpack-install_0.18.2-beta_linux_amd64.deb
+    sudo dpkg -i mrpack-install_0.18.2-beta_linux_amd64.deb
+    rm mrpack-install_0.18.2-beta_linux_amd64.deb
 fi
 
 # If user wants to install a modpack they can enter the link here
@@ -44,6 +46,12 @@ clear
 echo "Do you want to install a modpack from modrinth? (y/n)"
 read r2
 if [[ $r2 =~ ^[Yy]$ ]]; then
+
+echo "when you enter the modpack link it will extract the mod name and version for you"
+sleep 1
+echo "please enter the link in this format https://modrinth.com/modpack/fabulously-optimized/version/6.4.0-alpha.6"
+echo "(go onto modrinth and click on the modpack and then click on the version tab and copy the link for your modpack choice)"
+
 while true; do
     read -p "Enter the modpack link: " link
 
@@ -71,13 +79,17 @@ mrpack-install $mod_name $version --server-dir $server_dir --server-file srv.jar
 # Same as custom server setup but just with the modpack already installed
 # adding the ram and thread allocation section
 
-echo "Modpack installation complete."
+echo "Modpack installation complete, starting system configuration."
+sleep 1
+wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/systemconfig.sh
+sudo chmod +x systemconfig.sh
+./systemconfig.sh
 else
 echo "continuing without modpack installation. Moving on to custom server setup."
 fi
 sleep 2
 
-## This is the setup for the minecraft server
+## This is the setup for the minecraft server if you want to start fresh and make your own modpack or just want vanilla
 
 ## Download section
 echo "Choose a Minecraft server flavor to install:"
@@ -89,15 +101,26 @@ echo "5. Neoforge"
 echo "6. Paper"
 read -p "Enter your choice (1-6): " flavor_choice
 
-case $flavor_choice in
-    1) flavor="vanilla" ;;
-    2) flavor="fabric" ;;
-    3) flavor="quilt" ;;
-    4) flavor="forge" ;;
-    5) flavor="neoforge" ;;
-    6) flavor="paper" ;;
-    *) echo "Invalid choice. Exiting."; exit 1 ;;
-esac
+attempts=0
+while true; do
+    case $flavor_choice in
+        1) flavor="vanilla"; break ;;
+        2) flavor="fabric"; break ;;
+        3) flavor="quilt"; break ;;
+        4) flavor="forge"; break ;;
+        5) flavor="neoforge"; break ;;
+        6) flavor="paper"; break ;;
+        *) 
+            attempts=$((attempts + 1))
+            if [ $attempts -eq 3 ]; then
+                echo "Invalid choice. Exiting."; exit 1
+            else
+                echo "Invalid choice. Please try again."
+                read -p "Enter your choice (1-6): " flavor_choice
+            fi
+            ;;
+    esac
+done
 
 echo "Hit the enter key to load default values when prompted"
 sleep 2
