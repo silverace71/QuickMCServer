@@ -4,7 +4,8 @@ echo "This script will install a Minecraft server on your system. Do you wish to
 read r0
 if [[ $r0 =~ ^[Yy]$ ]]; then
 
-read -p "Do you agree to the minecraft EULA? (y/n)" r4
+echo "Do you agree to the minecraft EULA? (y/n)"
+read r4
 if [[ $r4 =~ ^[Yy]$ ]]; then
     sleep 1
 else
