@@ -49,7 +49,9 @@ if [[ $r2 =~ ^[Yy]$ ]]; then
 
 echo "when you enter the modpack link it will extract the mod name and version for you"
 sleep 1
-echo "please enter the link in this format https://modrinth.com/modpack/fabulously-optimized/version/6.4.0-alpha.6"
+echo "please enter the link in this format"
+echo "https://modrinth.com/modpack/fabulously-optimized/version/6.4.0-alpha.6"
+echo "https://modrinth.com/modpack/(modpack name)/version/(version number)"
 echo "(go onto modrinth and click on the modpack and then click on the version tab and copy the link for your modpack choice)"
 
 while true; do
@@ -86,8 +88,6 @@ sudo chmod +x systemconfig.sh
 ./systemconfig.sh
 else
 echo "continuing without modpack installation. Moving on to custom server setup."
-fi
-sleep 2
 
 ## This is the setup for the minecraft server if you want to start fresh and make your own modpack or just want vanilla
 
@@ -140,6 +140,8 @@ mrpack-install server $flavor --server-dir $server_dir --minecraft-version $mc_v
 wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/systemconfig.sh
 sudo chmod +x systemconfig.sh
 ./systemconfig.sh
+
+fi
 
 # Start the server to generate files
 

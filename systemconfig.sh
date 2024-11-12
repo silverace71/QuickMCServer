@@ -32,6 +32,9 @@ fi
 ## jvm arguments section
 
 jvm_args="-Xms128M -Xmx${ram}M"
+
+## I need to change the jvm_arg for better performance, but i need to do some testing before i just slam it in
+
 cat << EOF >> start.sh
 #!/bin/bash
 java -jar $jvm_args srv.jar nogui
@@ -41,42 +44,8 @@ mv start.sh $server_dir
 cd $server_dir
 wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/eula.txt
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+else
+echo "Starting manual configuration"
 
 ## Ram allocation section
 
@@ -85,7 +54,7 @@ wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/eula.txt
 
 ## Check total system RAM
     total_ram=$(free -g | awk '/^Mem:/{print $2}')
-    max_allowed=$((total_ram - 2)) # Leave at least 2GB for the systems
+    max_allowed=$((total_ram - 1)) # Leave at least 1GB for the systems
 
     if [ $GB -gt $max_allowed ]; then
         echo "Warning: You're trying to allocate more RAM than recommended."
@@ -180,39 +149,4 @@ sudo chmod +x start.sh
 mv start.sh $server_dir
 cd $server_dir
 wget https://raw.githubusercontent.com/silverace71/QuickMCServer/main/eula.txt
-
-# Start the server to generate files
-
-echo "Starting the server to generate files..."
-java -jar $jvm_args srv.jar nogui &  # Run in the background
-server_pid=$!  # Capture the PID of the server process
-
-# Wait for server.properties to generate
-while [ ! -f "server.properties" ]; do
-    sleep 1  # Check every second
-done
-
-echo "Stopping the server..."
-# Send the stop command to the server
-echo "stop" | java -jar $jvm_args srv.jar nogui
-wait $server_pid  # Wait for the server process to exit
-echo "Updating server.properties..."
-if [ -f "server.properties" ]; then
-    # Update the port
-    sed -i "s/^server-port=.*/server-port=$port/" server.properties
-    # Update the view distance
-    sed -i "s/^view-distance=.*/view-distance=$vdist/" server.properties
-else
-    echo "server.properties file not found!"
-fi
-
-echo "Use ./start.sh to start the server!"
-
-else
-echo "install cancelled"
-exit
-fi
-else
-echo "install cancelled"
-exit
 fi
